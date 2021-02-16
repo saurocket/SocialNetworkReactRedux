@@ -30,6 +30,7 @@ class UsersAPIComponent extends React.Component {
     }
 
     render() {
+
         return (
             <div className={classes.wrapperBox}>
                     {this.props.isFetching ?  <Spinner/> : null}
