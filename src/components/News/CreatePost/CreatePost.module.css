@@ -1,0 +1,29 @@
+.header{
+    margin-top: 10px;
+    text-align: center;
+    color: #0d6efd;
+}
+.mainForm {
+    display: flex;
+    flex-direction: column;
+}
+.btn{
+    margin-top: 10px;
+    padding: 10px 10px;
+    border-radius: 4px;
+    background-color: #0d6efd;
+    border: transparent;
+    width: 100px;
+    color: white;
+}
+.textBody{
+    min-height: 200px;
+}
+.headerForm{
+
+    margin-left: 10px;
+}
+.inputForm{
+    margin: 0;
+    padding: 0;
+}

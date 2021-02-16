@@ -1,0 +1,12 @@
+
+.dialog{
+    padding-right: 40px;
+    padding-bottom: 10px;
+    color: slateblue;
+}
+.dialogs .active{
+    color: #0d6efd;
+}
+.dialog a{
+    font-size: 16px;
+}

@@ -1,0 +1,27 @@
+header {
+    font-family: 'Bodoni Moda', serif;
+
+}
+.nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+    letter-spacing: 0.01em;
+
+}
+.nav a{
+    color: #0d6efd;
+    font-size: 24px;
+    font-weight: 900;
+    
+}
+.made{
+    color: gray;
+    font-size: 14px;
+    margin-left: 10px;
+}
+.loginBlock{
+    border: 2px solid black;
+}
