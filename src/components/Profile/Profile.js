@@ -2,6 +2,7 @@ import clasess from './profile.module.css';
 import Post from "./posts/posts";
 import Avatar from './Avatar/Avatar'
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWichHooks";
 
 
 
@@ -10,7 +11,7 @@ const Profile = ({profilePage,addPost, status, updateStatus}) => {
 
     return (
         <div className={clasess.content}>
-            <ProfileStatus
+            <ProfileStatusWithHooks
                 updateStatus={updateStatus}
                 status={status}/>
             <Avatar
