@@ -1,7 +1,7 @@
 import clasess from './profile.module.css';
 import Post from "./posts/posts";
 import Avatar from './Avatar/Avatar'
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
+
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWichHooks";
 
 

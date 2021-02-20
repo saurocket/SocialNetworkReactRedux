@@ -1,8 +1,6 @@
 import './App.css';
 import 'normalize.css';
-
-import {Route, withRouter} from "react-router-dom";
-
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import NavPageContainer from "./components/nav/NavPageContainer";
@@ -11,14 +9,13 @@ import DialogPageContainer from "./components/DIalogs/DialogPageContainer";
 import NewsPageContainer from "./components/News/NewsPageContainer";
 import UserPageContainer from "./components/Users/UsersPageContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
-
 import LoginReduxForm from "./components/Login/Login";
 import {Component} from "react";
-import {connect} from "react-redux";
-
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Spinner from "./components/common/spinner/Spinner";
+import store from "./redux/redux-store";
 
 class App extends Component{
     componentDidMount() {
@@ -59,8 +56,21 @@ const mapStateToProps = (state) => {
         initialized: state.app.initialized
     }
 }
-export default compose(
+let AppContainer = compose(
     withRouter,
     connect(mapStateToProps,{initializeApp})
 )
 (App)
+
+
+const MainApp =  (props) => {
+    return(
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default MainApp;

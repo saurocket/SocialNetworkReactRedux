@@ -1,14 +1,12 @@
 import React from 'react';
 import clasess from './ProfileStatus.module.css'
 
-
 class ProfileStatus extends React.Component {
     state = {
         editMode: false,
         status: this.props.status
     }
     activateEditeMode = () => {
-
         this.setState({
             editMode: true
         })
@@ -28,11 +26,8 @@ class ProfileStatus extends React.Component {
     componentDidUpdate(prevP,prevS) {
          if(prevP.status !== this.props.status){
              this.setState({status: this.props.status});
-
          }
-
     }
-
     render() {
         return (
             <div className={clasess.wrapper}>
@@ -48,10 +43,8 @@ class ProfileStatus extends React.Component {
                         } autoFocus={true} onBlur={this.deActivateEditMode} value={this.state.status}/>
                     </div>
                 }
-
             </div>
         )
     }
 }
-
 export default ProfileStatus;
