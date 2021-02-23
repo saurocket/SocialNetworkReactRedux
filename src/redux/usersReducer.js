@@ -13,7 +13,7 @@ let initialState = {
     users: [],
     pageSize: 10,
     totalUsersCount: 0,
-    currentPage: 2,
+    currentPage: 1,
     isFetching: true,
     follwingInProgress: []
 }
@@ -81,11 +81,12 @@ export const getUsers = (page, pageSize) => {
             dispatch(toggleIsFetching(false));
             dispatch(setCurrentPage(page));
             dispatch(setUsers(response.items));
-            if (response.totalCount > 100) {
-                dispatch(setTotalUserCount(200));
-            } else {
-                dispatch(setTotalUserCount(response.totalCount));
-            }
+            dispatch(setTotalUserCount(response.totalCount));
+            // if (response.totalCount > 100) {
+            //     dispatch(setTotalUserCount(200));
+            // } else {
+            //     dispatch(setTotalUserCount(response.totalCount));
+            // }
         }
     )
 }

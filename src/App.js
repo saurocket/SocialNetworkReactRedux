@@ -1,13 +1,12 @@
 import './App.css';
+import React, { lazy, Suspense } from 'react';
 import 'normalize.css';
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import NavPageContainer from "./components/nav/NavPageContainer";
-import ProfilePageContainer from "./components/Profile/ProfilePageContainer";
-import DialogPageContainer from "./components/DIalogs/DialogPageContainer";
+import UserPageContainer from "./components/Users/UsersPageContainer"
 import NewsPageContainer from "./components/News/NewsPageContainer";
-import UserPageContainer from "./components/Users/UsersPageContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import LoginReduxForm from "./components/Login/Login";
 import {Component} from "react";
@@ -16,6 +15,12 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Spinner from "./components/common/spinner/Spinner";
 import store from "./redux/redux-store";
+
+
+const DialogPageContainer = React.lazy(() => import("./components/DIalogs/DialogPageContainer"));
+const ProfilePageContainer = React.lazy(() => import("./components/Profile/ProfilePageContainer"));
+const renderLoader = () => <p>Loading</p>;
+
 
 class App extends Component{
     componentDidMount() {
@@ -35,12 +40,16 @@ class App extends Component{
                            <NavPageContainer/>
                        </div>
                        <div className="col-md-9 wrapper-content">
-                           <Route path='/profile/:userId?' render={() => <ProfilePageContainer/>}/>
-                           <Route path='/dialogs' render={() => <DialogPageContainer/>}/>
+
+                           <Suspense fallback={renderLoader()}>
+                               <Route path='/profile/:userId?' render={() => <ProfilePageContainer/>}/>
+                               <Route path='/dialogs' render={() => <DialogPageContainer/>}/>
+                           </Suspense>
+                           <Route path='/users' render={() => <UserPageContainer/>}/>
                            <Route path='/news' render={() => <NewsPageContainer/>}/>
                            <Route path='/music' component={Music}/>
                            <Route path='/settings' component={Settings}/>
-                           <Route path='/users' render={() => <UserPageContainer/>}/>
+
                            <Route path='/login' render={() => <LoginReduxForm/>}/>
                        </div>
                    </div>
