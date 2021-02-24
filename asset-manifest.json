@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/SocialNetworkReactRedux/static/css/main.13c0db91.chunk.css",
+    "main.js": "/SocialNetworkReactRedux/static/js/main.9d0c5e33.chunk.js",
+    "main.js.map": "/SocialNetworkReactRedux/static/js/main.9d0c5e33.chunk.js.map",
+    "runtime-main.js": "/SocialNetworkReactRedux/static/js/runtime-main.5bfa43d9.js",
+    "runtime-main.js.map": "/SocialNetworkReactRedux/static/js/runtime-main.5bfa43d9.js.map",
+    "static/css/2.679831fc.chunk.css": "/SocialNetworkReactRedux/static/css/2.679831fc.chunk.css",
+    "static/js/2.ab4a380c.chunk.js": "/SocialNetworkReactRedux/static/js/2.ab4a380c.chunk.js",
+    "static/js/2.ab4a380c.chunk.js.map": "/SocialNetworkReactRedux/static/js/2.ab4a380c.chunk.js.map",
+    "static/css/3.2b734fdf.chunk.css": "/SocialNetworkReactRedux/static/css/3.2b734fdf.chunk.css",
+    "static/js/3.82f84614.chunk.js": "/SocialNetworkReactRedux/static/js/3.82f84614.chunk.js",
+    "static/js/3.82f84614.chunk.js.map": "/SocialNetworkReactRedux/static/js/3.82f84614.chunk.js.map",
+    "static/css/4.a7baa59a.chunk.css": "/SocialNetworkReactRedux/static/css/4.a7baa59a.chunk.css",
+    "static/js/4.5099b812.chunk.js": "/SocialNetworkReactRedux/static/js/4.5099b812.chunk.js",
+    "static/js/4.5099b812.chunk.js.map": "/SocialNetworkReactRedux/static/js/4.5099b812.chunk.js.map",
+    "index.html": "/SocialNetworkReactRedux/index.html",
+    "static/css/2.679831fc.chunk.css.map": "/SocialNetworkReactRedux/static/css/2.679831fc.chunk.css.map",
+    "static/css/3.2b734fdf.chunk.css.map": "/SocialNetworkReactRedux/static/css/3.2b734fdf.chunk.css.map",
+    "static/css/4.a7baa59a.chunk.css.map": "/SocialNetworkReactRedux/static/css/4.a7baa59a.chunk.css.map",
+    "static/css/main.13c0db91.chunk.css.map": "/SocialNetworkReactRedux/static/css/main.13c0db91.chunk.css.map",
+    "static/js/2.ab4a380c.chunk.js.LICENSE.txt": "/SocialNetworkReactRedux/static/js/2.ab4a380c.chunk.js.LICENSE.txt",
+    "static/media/relax.2833335c.svg": "/SocialNetworkReactRedux/static/media/relax.2833335c.svg",
+    "static/media/spinner.bf6a51f9.svg": "/SocialNetworkReactRedux/static/media/spinner.bf6a51f9.svg",
+    "static/media/work.a1c80803.svg": "/SocialNetworkReactRedux/static/media/work.a1c80803.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5bfa43d9.js",
+    "static/css/2.679831fc.chunk.css",
+    "static/js/2.ab4a380c.chunk.js",
+    "static/css/main.13c0db91.chunk.css",
+    "static/js/main.9d0c5e33.chunk.js"
+  ]
+}
