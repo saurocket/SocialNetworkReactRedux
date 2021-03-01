@@ -82,11 +82,6 @@ export const getUsers = (page, pageSize) => {
             dispatch(setCurrentPage(page));
             dispatch(setUsers(response.items));
             dispatch(setTotalUserCount(response.totalCount));
-            // if (response.totalCount > 100) {
-            //     dispatch(setTotalUserCount(200));
-            // } else {
-            //     dispatch(setTotalUserCount(response.totalCount));
-            // }
         }
     )
 }

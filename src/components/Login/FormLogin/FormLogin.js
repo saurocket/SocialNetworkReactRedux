@@ -3,7 +3,7 @@ import {Field} from "redux-form";
 import {Input} from "../../common/FormsControll/FormsControll";
 import {required} from "../../../utils/validators/validators";
 
-const FormLogin = ({handleSubmit, error}) => {
+const FormLogin = ({handleSubmit, error, captchaUrl}) => {
 
     return (
             <form onSubmit={handleSubmit} className={classes.form}>
@@ -30,6 +30,18 @@ const FormLogin = ({handleSubmit, error}) => {
                 <div>
                     <button>LoginForm</button>
                 </div>
+
+                {captchaUrl &&  <img className={classes.captcha} src={captchaUrl} />}
+                {captchaUrl &&  <div>
+                    <Field
+                        name={"captcha"}
+                        type="text"
+                        validate={[required]}
+                        component={Input}
+                    />
+                </div>
+                }
+
 
                 {error && <div className={classes.formSummaryError}>
                     {error}

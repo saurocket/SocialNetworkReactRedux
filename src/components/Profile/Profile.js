@@ -7,7 +7,8 @@ import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWichHooks";
 
 
 
-const Profile = ({profilePage,addPost, status, updateStatus}) => {
+
+const Profile = ({profilePage,addPost, status, updateStatus, updatePhoto,  photo, isOwner, saveProfile}) => {
 
     return (
         <div className={clasess.content}>
@@ -16,6 +17,10 @@ const Profile = ({profilePage,addPost, status, updateStatus}) => {
                 status={status}/>
             <Avatar
             profile={profilePage.profile}
+            updatePhoto={updatePhoto}
+            photo={photo}
+            isOwner={isOwner}
+            saveProfile={saveProfile}
             />
             <Post
                 profilePage={profilePage}

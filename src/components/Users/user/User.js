@@ -1,6 +1,6 @@
 import classes from "../Users.module.css";
 import {NavLink} from "react-router-dom";
-import addUser from "../../../assets/images/addUser.png";
+import usersPhoto from "../../../assets/images/addUser.png";
 
 const User = ({unFollow, follow,follwingInProgress, user}) => {
         return(
@@ -8,7 +8,7 @@ const User = ({unFollow, follow,follwingInProgress, user}) => {
                 <div>
                     <NavLink to={"/profile/" + user.id}>
                         <div className={classes.avatar}>
-                            <img src={user.photos.small != null ? user.photos.small : addUser}/>
+                            <img src={user.photos.small != null ? user.photos.small : usersPhoto}/>
                         </div>
                     </NavLink>
                     {user.followed

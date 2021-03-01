@@ -8,7 +8,7 @@ const Post = React.memo((props) => {
         console.log('renderYO');
         let posts =  props.profilePage.posts.map(p => {
             return(
-                <Post_item messege={p.post}  like={p.like} id={p.id}/>
+                <Post_item key={p.post} messege={p.post}  like={p.like} id={p.id}/>
             )
         });
         return (
