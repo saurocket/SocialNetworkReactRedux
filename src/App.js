@@ -15,6 +15,7 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Spinner from "./components/common/spinner/Spinner";
 import store from "./redux/redux-store";
+import Redirect from "react-router-dom/es/Redirect";
 
 
 const DialogPageContainer = React.lazy(() => import("./components/DIalogs/DialogPageContainer"));
@@ -23,9 +24,22 @@ const renderLoader = () => <p>Loading</p>;
 
 
 class App extends Component{
-    componentDidMount() {
-        this.props.initializeApp()
+    catchAllErrors = (event) => {
+        alert("some error");
+        console.log(event);
+
     }
+
+    componentDidMount() {
+        this.props.initializeApp();
+
+        window.addEventListener('unhandledrejection', this.catchAllErrors);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllErrors);
+    }
+
+
     render(){
        if( !this.props.initialized){
            return <Spinner/>
@@ -40,7 +54,8 @@ class App extends Component{
                            <NavPageContainer/>
                        </div>
                        <div className="col-md-9 wrapper-content">
-
+                            <Route exact path='/'
+                                   render={()=> <Redirect to={'profile'}/>}/>
                            <Suspense fallback={renderLoader()}>
                                <Route path='/profile/:userId?' render={() => <ProfilePageContainer/>}/>
                                <Route path='/dialogs' render={() => <DialogPageContainer/>}/>
@@ -49,8 +64,8 @@ class App extends Component{
                            <Route path='/news' render={() => <NewsPageContainer/>}/>
                            <Route path='/music' component={Music}/>
                            <Route path='/settings' component={Settings}/>
-
                            <Route path='/login' render={() => <LoginReduxForm/>}/>
+                           <Route path='*' render={()=><div>404 NOT FOUND</div> }/>
                        </div>
                    </div>
                </div>
