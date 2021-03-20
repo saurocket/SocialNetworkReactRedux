@@ -60,7 +60,7 @@ class App extends Component{
                                <Route path='/profile/:userId?' render={() => <ProfilePageContainer/>}/>
                                <Route path='/dialogs' render={() => <DialogPageContainer/>}/>
                            </Suspense>
-                           <Route path='/users' render={() => <UserPageContainer/>}/>
+                           <Route path='/users' render={() => <UserPageContainer pageTitle={"Samurai"}/>}/>
                            <Route path='/news' render={() => <NewsPageContainer/>}/>
                            <Route path='/music' component={Music}/>
                            <Route path='/settings' component={Settings}/>
