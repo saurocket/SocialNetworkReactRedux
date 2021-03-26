@@ -1,7 +1,6 @@
+import {InferActionsTypes} from "./redux-store";
 
-const UPDATE_NEW_HEADER_NEWS = 'UPDATE-NEW-HEADER-NEWS';
-const UPDATE_NEW_BODY_NEWS = 'UPDATE-NEW-BODY-NEWS';
-const ADD_NEWS = 'ADD_NEWS';
+
 
 
 export type NewsType = {
@@ -34,22 +33,18 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
- const newsReducer = (state=initialState, action:any):InitialStateType => {
+ const newsReducer = (state=initialState, action:ActionsType):InitialStateType => {
 
      switch (action.type) {
-         case UPDATE_NEW_HEADER_NEWS: {
+         case "UPDATE_NEW_HEADER_NEWS": {
+             // @ts-ignore
              return {...state, ...state.newMessage, ...state.newMessage.headerNews = action.text}
-
-             //
-             // let stateCopy = {...state};
-             // stateCopy.newMessage = {...stateCopy.newMessage};
-             // stateCopy.newMessage.headerNews = action.text;
-             // return stateCopy;
          }
-         case UPDATE_NEW_BODY_NEWS: {
+         case "UPDATE_NEW_BODY_NEWS": {
+             // @ts-ignore
                 return {...state, ...state.newMessage, ...state.newMessage.bodyNews = action.text}
          }
-         case ADD_NEWS: {
+         case "ADD_NEWS": {
              let newNews = {
                  id: 4,
                  header: state.newMessage.headerNews,
@@ -66,40 +61,38 @@ type InitialStateType = typeof initialState
      }
 }
 
-type ChangeNewsHeaderActionType = {
-    type: typeof UPDATE_NEW_HEADER_NEWS
-    text: string
+
+
+type ActionsType = InferActionsTypes<typeof actions>
+
+export const actions = {
+    changeNewsHeader:(text:string) => {
+        return (
+            {
+                type: "UPDATE_NEW_HEADER_NEWS",
+                text: text
+            } as const
+        )
+    },
+   changeNewsBody:(text:string) => {
+        return (
+            {
+                type: "UPDATE_NEW_BODY_NEWS",
+                text: text
+            } as const
+        )
+    },
+ addNewsPost: () => {
+        return (
+            {
+                type: "ADD_NEWS"
+            } as const
+        )
+    }
 }
 
-export const changeNewsHeader = (text:string): ChangeNewsHeaderActionType => {
-    return (
-        {
-            type: UPDATE_NEW_HEADER_NEWS,
-            text: text
-        }
-    )
-}
 
-type ChangeNewsBodyActionType = {
-    type: typeof UPDATE_NEW_BODY_NEWS
-    text: string
-}
-export const changeNewsBody= (text:string): ChangeNewsBodyActionType => {
-    return (
-        {
-            type: UPDATE_NEW_BODY_NEWS,
-            text: text
-        }
 
-    )
-}
-export const addNewsPost = (): {type: typeof ADD_NEWS} => {
-    return (
-        {
-            type: ADD_NEWS
-        }
-    )
-}
 
 
 

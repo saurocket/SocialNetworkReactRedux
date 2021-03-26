@@ -1,7 +1,10 @@
 import {connect} from "react-redux";
 import News from "./News";
-import {addNewsPost, changeNewsBody, changeNewsHeader} from "../../redux/newReducer";
+import {actions} from "../../redux/newReducer";
 import {AppStateType} from "../../redux/redux-store";
+
+
+const {addNewsPost, changeNewsBody, changeNewsHeader} = actions;
 
 const mapStateToProps = (state:AppStateType) => {
     return {

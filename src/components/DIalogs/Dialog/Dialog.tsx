@@ -10,7 +10,6 @@ const Dialog:React.FC<PropsType> = ({name, id}) => {
     let path = `/dialog/${id}`;
     return (
         <li className={classes.dialog}>
-
             <a
                 href={path}
                 key={id}

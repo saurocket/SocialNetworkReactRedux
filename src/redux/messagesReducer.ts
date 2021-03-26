@@ -1,4 +1,5 @@
-const ADD_MESSAGE = 'ADD-MESSAGE';
+import {InferActionsTypes} from "./redux-store";
+
 type MessageType = {
     id: number
     message: string
@@ -22,11 +23,12 @@ let initialState = {
         {id: 4, name: 'Petrt'},
     ] as Array<DialogType>,
 }
-export type InitialStateType = typeof initialState
 
-const messagesReducer = (state=initialState, action: any): InitialStateType => {
+
+const messagesReducer = (state=initialState, action: ActionsType)
+    : InitialStateType => {
     switch (action.type) {
-        case ADD_MESSAGE: {
+        case "ADD_MESSAGE": {
             const message = {id: 6, message: action.newMessage}
             return  {
                 ...state,
@@ -38,9 +40,8 @@ const messagesReducer = (state=initialState, action: any): InitialStateType => {
 }
 export default messagesReducer
 
-type SendMessageActionType = {
-    type: typeof ADD_MESSAGE
-    newMessage: string
+export const actions = {
+    sendMessage: (newMessage: string) => ({type: "ADD_MESSAGE", newMessage } as const)
 }
-export const sendMessage = (newMessage: string): SendMessageActionType  => ({type: ADD_MESSAGE, newMessage });
-const ducer:string = 'dddd';
+export type InitialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof actions>

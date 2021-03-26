@@ -14,7 +14,7 @@ let initialState = {
     ] as Array<FriendsBarType>
 }
 export type InitialStateType = typeof initialState
-const navReducer = (state = initialState, action:any): InitialStateType =>
+const navReducer = (state = initialState): InitialStateType =>
 
 {
     return state;

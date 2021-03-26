@@ -2,14 +2,15 @@ import React from 'react';
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import {
-    addPost,
     getCurrentProfile,
     getStatus, ProfileType, saveProfile, updatePhoto,
-    updateStatus
+    updateStatus, actions
 } from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/redux-store";
+
+const {addPost} = actions
 
 type MapStateToPropsType  = {
     profilePage: any

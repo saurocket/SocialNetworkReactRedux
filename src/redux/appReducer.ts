@@ -1,16 +1,14 @@
-
 import {getAuthMe} from "./authReduce";
-const SET_INITIALIZED_APP = 'SET_INITIALIZED_APP';
+import {ThunkAction} from "redux-thunk";
+import {AppStateType, InferActionsTypes} from "./redux-store";
 
-export type InitialStateType = {
-    initialized: boolean
-}
-let initialState: InitialStateType = {
+const initialState = {
     initialized: false
 }
-export const appReducer = (state = initialState, action: any):InitialStateType => {
+
+export const appReducer = (state = initialState, action:ActionType):InitialStateType => {
     switch (action.type) {
-        case SET_INITIALIZED_APP: {
+        case "SET_INITIALIZED_APP": {
             return  {
                 ...state,
                 initialized: true
@@ -19,21 +17,26 @@ export const appReducer = (state = initialState, action: any):InitialStateType =
         default:  return state;
     }
 }
-type InitializedSuccessActionType = {
-    type: typeof SET_INITIALIZED_APP //
+
+const actions = {
+  initializedSuccess: () => ({type: "SET_INITIALIZED_APP"} as const),
 }
-const initializedSuccess = (): InitializedSuccessActionType => ({type: SET_INITIALIZED_APP});
-export const initializeApp = () => {
+
+
+export const initializeApp = ()=> {
     return (
         (dispatch:any) => {
           let promise = dispatch(getAuthMe());
           promise.then(() => {
-              dispatch(initializedSuccess());
+              dispatch(actions.initializedSuccess());
           })
         }
     )
 }
 
+export type InitialStateType = typeof initialState;
+type ActionType = InferActionsTypes<typeof actions>
+type ThunkActionType = ThunkAction<Promise<void>, AppStateType, any, ActionType>
 
 
 
