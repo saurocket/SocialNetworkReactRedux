@@ -87,5 +87,5 @@ export default compose(
     connect(mapStateProps, {addPost, getCurrentProfile, getStatus, updateStatus, updatePhoto, saveProfile}),
     withRouter,
 )
-(ProfileContainer);
+(ProfileContainer) as React.ComponentType;
 

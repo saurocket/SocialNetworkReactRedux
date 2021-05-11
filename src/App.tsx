@@ -1,30 +1,34 @@
 import './App.css';
-import React, { lazy, Suspense } from 'react';
+import React, {ComponentType, lazy, Suspense} from 'react';
 import 'normalize.css';
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import NavPageContainer from "./components/nav/NavPageContainer";
-import UserPageContainer from "./components/Users/UsersPageContainer"
+import {UsersPage} from "./components/Users/UsersPageContainer"
 import NewsPageContainer from "./components/News/NewsPageContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
-import LoginReduxForm from "./components/Login/Login";
+import {Login} from "./components/Login/Login";
 import {Component} from "react";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Spinner from "./components/common/spinner/Spinner";
-import store from "./redux/redux-store";
-import Redirect from "react-router-dom/es/Redirect";
+import store, {AppStateType} from "./redux/redux-store";
+
 
 
 const DialogPageContainer = React.lazy(() => import("./components/DIalogs/DialogPageContainer"));
 const ProfilePageContainer = React.lazy(() => import("./components/Profile/ProfilePageContainer"));
 const renderLoader = () => <p>Loading</p>;
 
+type PropsType = {
+    initialized:AppStateType
+    initializeApp: ()=>void
+}
 
-class App extends Component{
-    catchAllErrors = (event) => {
+class App extends Component<PropsType>{
+    catchAllErrors = (event:PromiseRejectionEvent) => {
         alert("some error");
         console.log(event);
 
@@ -32,13 +36,11 @@ class App extends Component{
 
     componentDidMount() {
         this.props.initializeApp();
-
         window.addEventListener('unhandledrejection', this.catchAllErrors);
     }
     componentWillUnmount() {
         window.removeEventListener('unhandledrejection', this.catchAllErrors);
     }
-
 
     render(){
        if( !this.props.initialized){
@@ -60,34 +62,32 @@ class App extends Component{
                                <Route path='/profile/:userId?' render={() => <ProfilePageContainer/>}/>
                                <Route path='/dialogs' render={() => <DialogPageContainer/>}/>
                            </Suspense>
-                           <Route path='/users' render={() => <UserPageContainer pageTitle={"Samurai"}/>}/>
+                           <Route path='/users' render={() => <UsersPage pageTitle={"Samurai"}/>}/>
                            <Route path='/news' render={() => <NewsPageContainer/>}/>
                            <Route path='/music' component={Music}/>
                            <Route path='/settings' component={Settings}/>
-                           <Route path='/login' render={() => <LoginReduxForm/>}/>
+                           <Route path='/login' render={() => <Login/>}/>
                            <Route path='*' render={()=><div>404 NOT FOUND</div> }/>
                        </div>
                    </div>
                </div>
            )
        }
-
-
     }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:AppStateType) => {
     return {
         initialized: state.app.initialized
     }
 }
-let AppContainer = compose(
+const AppContainer = compose<ComponentType>(
     withRouter,
     connect(mapStateToProps,{initializeApp})
 )
 (App)
 
 
-const MainApp =  (props) => {
+const MainApp: React.FC =  () => {
     return(
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>

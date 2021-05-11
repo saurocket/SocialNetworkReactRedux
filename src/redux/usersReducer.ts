@@ -1,9 +1,10 @@
 import {updateObjectInArray} from "../utils/objectHelpers";
 import {UserType} from "../types/types";
 import {Dispatch} from "redux";
-import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store";
-import {ThunkAction} from "redux-thunk";
+import {BaseThunkType, InferActionsTypes} from "./redux-store";
+
 import {usersAPI} from "../API/users-api";
+import {APIResponseType, ResultCodesEnum} from "../API/api";
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -11,11 +12,12 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    follwingInProgress: [] as Array<number> //Array Of users ID
+    follwingInProgress: [] as Array<number>, //Array Of users ID,
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
 }
-
-
-
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case "FOLLOW": {
@@ -49,13 +51,16 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
                     : state.follwingInProgress.filter(id => id != action.userId)
             }
         }
+        case "SET_USER_FILTER":{
+            return {
+                ...state, filter: action.payload
+            }
+        }
         default:
             return state;
     }
 }
 export default usersReducer;
-
-
 export const actions = {
     followSuccess: (userId: number) => {
         return ({type: 'FOLLOW', userId} as const)
@@ -71,14 +76,15 @@ export const actions = {
         type: 'TOGGLE_IS_FOLLOWING_PROGRESS',
         follwingInProgress,
         userId
-    } as const)
+    } as const),
+    setFilter: (filter: FilterType)=> ({type: 'SET_USER_FILTER', payload:filter} as const)
 }
-
-export const getUsers = (page: number, pageSize: number): ThunkType => {
+export const getUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => {
     return (
         async (dispatch, getState) => {
             dispatch(actions.toggleIsFetching(true));
-            let response = await usersAPI.getUsers(page, pageSize);
+            dispatch(actions.setFilter(filter));
+            let response = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend);
             dispatch(actions.toggleIsFetching(false));
             dispatch(actions.setCurrentPage(page));
             dispatch(actions.setUsers(response.items));
@@ -87,32 +93,31 @@ export const getUsers = (page: number, pageSize: number): ThunkType => {
     )
 }
 const _followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>,
-                                   userId: number, apiMethod: any,
+                                   userId: number, apiMethod: (userId:number) => Promise<APIResponseType>,
                                    actionCreator: (userId: number) => any) => {
     dispatch(actions.toggleIsFollowingProgress(true, userId));
     let response = await apiMethod(userId)
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         dispatch(actionCreator(userId));
     }
     dispatch(actions.toggleIsFollowingProgress(false, userId));
 
 }
-
-
 export const unFollow = (userId: number): ThunkType => {
     return (
         async (dispatch, getState) => {
-            _followUnfollowFlow(dispatch, userId, usersAPI.unFollowUser.bind(usersAPI), actions.unFollowSuccess);
+         await _followUnfollowFlow(dispatch, userId, usersAPI.unFollowUser.bind(usersAPI), actions.unFollowSuccess);
         }
     )
 }
 export const follow = (userId: number): ThunkType => {
     return (
         async (dispatch) => {
-            _followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), actions.followSuccess);
+          await _followUnfollowFlow(dispatch, userId, usersAPI.followUser.bind(usersAPI), actions.followSuccess);
         }
     )
 }
 type ThunkType = BaseThunkType<ActionsTypes>
 type ActionsTypes = InferActionsTypes<typeof actions>
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter

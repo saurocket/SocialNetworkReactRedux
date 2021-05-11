@@ -1,6 +1,6 @@
 import {getAuthMe} from "./authReduce";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionsTypes} from "./redux-store";
+import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store";
 
 const initialState = {
     initialized: false
@@ -36,8 +36,5 @@ export const initializeApp = ()=> {
 
 export type InitialStateType = typeof initialState;
 type ActionType = InferActionsTypes<typeof actions>
-type ThunkActionType = ThunkAction<Promise<void>, AppStateType, any, ActionType>
-
-
 
 export default appReducer

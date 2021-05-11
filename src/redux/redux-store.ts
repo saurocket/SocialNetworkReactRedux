@@ -19,23 +19,15 @@ let reducers = combineReducers({
     form: formReducer
 });
 
-
 type RootReducerType = typeof reducers;
 export type AppStateType = ReturnType<RootReducerType>
-
-
-type PropertyTypes<T> = T extends {[key: string]: infer U} ? U : never
-export type InferActionsTypes<T extends {[key: string]:(...args: any[])=>any}> = ReturnType<PropertyTypes<T>>
+export type InferActionsTypes<T> = T extends {[key: string]: (...arg:any[]) => infer U } ? U: never
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)
 ));
 
-
 export type BaseThunkType<A extends Action, R = Promise<void>> =  ThunkAction<R, AppStateType, unknown, A>
-
-// const store = createStore(reducers, applyMiddleware(hunkMiddleware));
-
 
 export default store;
